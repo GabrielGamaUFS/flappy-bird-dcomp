@@ -1,32 +1,28 @@
-//board
-let board;
-let boardWidth = 360;
-let boardHeight = 640;
-let context;
 
-//bird
-let birdWidth = 34; //width/height ratio = 408/228 = 17/12
-let birdHeight = 24;
-let birdX = boardWidth/8;
-let birdY = boardHeight/2;
-let birdImg;
+ let context;
+ let birdImg;
+ let topPipeImg;
+ let bottomPipeImg;
 
-let bird = {
-    x : birdX,
-    y : birdY,
-    width : birdWidth,
-    height : birdHeight
+
+
+
+const  bird = {  
+    x : 45,
+    y : 320,
+    width : 34,  
+    height : 24
 }
 
 //pipes
-let pipeArray = [];
-let pipeWidth = 64; //width/height ratio = 384/3072 = 1/8
-let pipeHeight = 512;
-let pipeX = boardWidth;
-let pipeY = 0;
+const pipeArray = [];
+const pipeWidth = 64; //width/height ratio = 384/3072 = 1/8
+const pipeHeight = 512;
+const pipeX = 1000;
+const pipeY = 0;
 
-let topPipeImg;
-let bottomPipeImg;
+
+
 
 //physics
 let velocityX = -2; //pipes moving left speed
@@ -36,11 +32,16 @@ let gravity = 0.4;
 let gameOver = false;
 let score = 0;
 
+
+
+
 window.onload = function() {
     board = document.getElementById("board");
-    board.height = boardHeight;
-    board.width = boardWidth;
-    context = board.getContext("2d"); //used for drawing on the board
+    board.height = 640;
+    board.width = 1000;
+     context = board.getContext("2d");
+    
+     //used for drawing on the board
 
     //draw flappy bird
     // context.fillStyle = "green";
