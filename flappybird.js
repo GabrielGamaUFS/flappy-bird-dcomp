@@ -15,13 +15,18 @@ const birdHeight = 24;
 const birdX = boardWidth/8;
 const birdY = boardHeight/2;
 
-
-const  bird = {  
-    x : 45,
-    y : 320,
-    width : 34,  
-    height : 24
+//Função que desenha a imagem do pássaro na tela, passando todos os parâmetros quanto as suas dimensões
+const imagems_passaro = (img) => {
+    img.onload = function() {
+        context.drawImage(img, bird.x, bird.y, bird.width, bird.height);
+    }
 }
+
+//Carrega a imagem do passaro
+const birdImg = new Image()
+birdImg.src = "./flappybird.png"
+//Chamada da função
+imagems_passaro(birdImg)
 
 //pipes
 const pipeArray = [];
