@@ -15,8 +15,16 @@ const birdHeight = 24;
 const birdX = boardWidth/8;
 const birdY = boardHeight/2;
 
+//Atrelando os dados das posições iniciais e das dimensões a x, y, widht e height. Para que seja melhor trabalhado futuramente
+const bird = {
+    x : birdX,
+    y : birdY,
+    width : birdWidth,
+    height : birdHeight
+}
+
 //Função que desenha a imagem do pássaro na tela, passando todos os parâmetros quanto as suas dimensões
-const imagems_passaro = (img) => {
+const birdImage = (img) => {
     img.onload = function() {
         context.drawImage(img, bird.x, bird.y, bird.width, bird.height);
     }
@@ -26,15 +34,7 @@ const imagems_passaro = (img) => {
 const birdImg = new Image()
 birdImg.src = "./flappybird.png"
 //Chamada da função
-imagems_passaro(birdImg)
-
-//Atrelando os dados das posições iniciais e das dimensões a x, y, widht e height. Para que seja melhor trabalhado futuramente
-const bird = {
-    x : birdX,
-    y : birdY,
-    width : birdWidth,
-    height : birdHeight
-}
+birdImage(birdImg)
 
 //pipes
 //Uma array que irá receber os canos (obstáculo do jogo)
@@ -50,15 +50,12 @@ let topPipeImg;
 let bottomPipeImg;
 
 //physics
-let velocityX = -2; //pipes moving left speed
+const velocityX = -2; //pipes moving left speed
+const gravity = 0.4;
 let velocityY = 0; //bird jump speed
-let gravity = 0.4;
 
 let gameOver = false;
-let score = 0;
-
-
-
+let score = 0; // A pontuação varia a todo momento
 
 window.onload = function() {
     board = document.getElementById("board");
