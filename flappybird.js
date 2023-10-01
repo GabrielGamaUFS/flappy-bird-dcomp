@@ -91,7 +91,7 @@ window.onload = function() {
 }
 
 function update() {
-    requestAnimationFrame(update);
+    setTimeout(update, 1000 / 60); // Isso limita a taxa de quadros para cerca de 60 FPS;
     if (gameOver) {
         return;
     }
