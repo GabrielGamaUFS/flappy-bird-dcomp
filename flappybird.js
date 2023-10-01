@@ -7,6 +7,13 @@ const boardHeight = 640;
 //Deixei como variável pois ela armazena o contexto de desenho 2D de um elemento HTML chamado "canvas", utilizado para fazer o jogo.
 let context;
 
+//bird-> Todo esse bloco irá receber dados sobre a pássaro
+//Dimensões do pássaro
+const birdWidth = 34; //width/height ratio = 408/228 = 17/12
+const birdHeight = 24;
+//Posições iniciais do pássaro no jogo
+const birdX = boardWidth/8;
+const birdY = boardHeight/2;
 
 
 const  bird = {  
