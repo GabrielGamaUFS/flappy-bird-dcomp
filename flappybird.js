@@ -37,14 +37,17 @@ const bird = {
 }
 
 //pipes
-const pipeArray = [];
+//Uma array que irá receber os canos (obstáculo do jogo)
+let pipeArray = [];
+//Dimensões do cano
 const pipeWidth = 64; //width/height ratio = 384/3072 = 1/8
 const pipeHeight = 512;
-const pipeX = 1000;
+//Coordenadas iniciais do cano
+const pipeX = boardWidth;
 const pipeY = 0;
 
-
-
+let topPipeImg;
+let bottomPipeImg;
 
 //physics
 let velocityX = -2; //pipes moving left speed
