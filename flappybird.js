@@ -43,7 +43,7 @@ let pipeArray = [];
 const pipeWidth = 64; //width/height ratio = 384/3072 = 1/8
 const pipeHeight = 512;
 //Coordenadas iniciais do cano
-const pipeX = boardWidth;
+const pipeX = boardWidth / 1.28;
 const pipeY = 0;
 
 let topPipeImg;
