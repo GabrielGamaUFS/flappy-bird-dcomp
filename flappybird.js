@@ -28,6 +28,14 @@ birdImg.src = "./flappybird.png"
 //Chamada da função
 imagems_passaro(birdImg)
 
+//Atrelando os dados das posições iniciais e das dimensões a x, y, widht e height. Para que seja melhor trabalhado futuramente
+const bird = {
+    x : birdX,
+    y : birdY,
+    width : birdWidth,
+    height : birdHeight
+}
+
 //pipes
 const pipeArray = [];
 const pipeWidth = 64; //width/height ratio = 384/3072 = 1/8
