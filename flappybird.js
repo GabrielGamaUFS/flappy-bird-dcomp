@@ -2,8 +2,8 @@
 //Decidir deixar a variável no board, pois é onde o jogo será exibido então não tem como deixar como const
 let board;
 //Dimensões do jogo
-const boardWidth = 360;
-const boardHeight = 640;
+const boardWidth = 1366;
+const boardHeight = 768;
 //Deixei como variável pois ela armazena o contexto de desenho 2D de um elemento HTML chamado "canvas", utilizado para fazer o jogo.
 let context;
 
@@ -12,8 +12,8 @@ let context;
 const birdWidth = 34; //width/height ratio = 408/228 = 17/12
 const birdHeight = 24;
 //Posições iniciais do pássaro no jogo
-const birdX = boardWidth/8;
-const birdY = boardHeight/2;
+const birdX = boardWidth / 8;
+const birdY = boardHeight / 2;
 
 //Atrelando os dados das posições iniciais e das dimensões a x, y, widht e height. Para que seja melhor trabalhado futuramente
 const bird = {
@@ -31,7 +31,7 @@ const birdImage = (img) => {
 }
 
 //Carrega a imagem do passaro
-const birdImg = new Image()
+let birdImg = new Image()
 birdImg.src = "./flappybird.png"
 //Chamada da função
 birdImage(birdImg)
