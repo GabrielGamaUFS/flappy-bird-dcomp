@@ -1,9 +1,11 @@
-
- let context;
- let birdImg;
- let topPipeImg;
- let bottomPipeImg;
-
+//board-> Todo esse bloco irá receber dados sobre o "quadro" do jogo
+//Decidir deixar a variável no board, pois é onde o jogo será exibido então não tem como deixar como const
+let board;
+//Dimensões do jogo
+const boardWidth = 360;
+const boardHeight = 640;
+//Deixei como variável pois ela armazena o contexto de desenho 2D de um elemento HTML chamado "canvas", utilizado para fazer o jogo.
+let context;
 
 
 
