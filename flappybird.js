@@ -62,19 +62,6 @@ window.onload = function() {
     board.height = 640;
     board.width = 1000;
      context = board.getContext("2d");
-    
-     //used for drawing on the board
-
-    //draw flappy bird
-    // context.fillStyle = "green";
-    // context.fillRect(bird.x, bird.y, bird.width, bird.height);
-
-    //load images
-    birdImg = new Image();
-    birdImg.src = "./flappybird.png";
-    birdImg.onload = function() {
-        context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
-    }
 
     topPipeImg = new Image();
     topPipeImg.src = "./toppipe.png";
