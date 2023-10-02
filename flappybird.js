@@ -32,7 +32,8 @@ const birdImage = (img) => {
 
 //Carrega a imagem do passaro
 let birdImg = new Image()
-birdImg.src = "./flappybird.png"
+//Teste de uma nova imagem
+birdImg.src = "./pixil-frame-0.png"
 //Chamada da função
 birdImage(birdImg)
 
