@@ -154,7 +154,7 @@ function placePipes() {
     pipeArray.push(bottomPipe);
 }
 
-function moveBird(e) {
+const moveBird = (e) => {
     if (e.code == "Space" || e.code == "ArrowUp" || e.code == "KeyX") {
         //jump
         velocityY = -6;
@@ -169,7 +169,7 @@ function moveBird(e) {
     }
 }
 
-function detectCollision(a, b) {
+const detectCollision = (a, b) => {
     return a.x < b.x + b.width &&   //a's top left corner doesn't reach b's top right corner
            a.x + a.width > b.x &&   //a's top right corner passes b's top left corner
            a.y < b.y + b.height &&  //a's top left corner doesn't reach b's bottom left corner
