@@ -76,46 +76,47 @@ window.onload = function() {
 }
 
 function update() {
-    setTimeout(update, 1000 / 60); // Isso limita a taxa de quadros para cerca de 60 FPS;
-    if (gameOver) {
+    setTimeout(update, 1000 / 60); // Isso limita a taxa de quadros para cerca de 60 FPS, utilizando um temporizador;
+    
+    if (gameOver != false) { // Verifica se a variável gameOver é verdadeira, e interrompe a atualização do jogo
         return;
     }
-    context.clearRect(0, 0, board.width, board.height);
 
-    //bird
+    context.clearRect(0, 0, board.width, board.height); // Limpa o board, colocando um quadro transparente sobre o board, antes de desenhar o próximo quadro
+
+    // Atualização da posição vertical do passáro, aplicando a gravidade para simular a queda
     velocityY += gravity;
-    // bird.y += velocityY;
-    bird.y = Math.max(bird.y + velocityY, 0); //apply gravity to current bird.y, limit the bird.y to top of the canvas
+    bird.y = Math.max(bird.y + velocityY, 0);
     context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
 
+    // Verifica se o pássaro caiu fora do quadro, se verdadeira, a vária vel gameOver é deixada como verdadeira
     if (bird.y > board.height) {
         gameOver = true;
     }
 
-    //pipes
-    for (let i = 0; i < pipeArray.length; i++) {
-        let pipe = pipeArray[i];
+    // Atualização a variável pipeArray, adicionando o cano(com suas posições) e sua velocidade do cano, que faz o cano se mover para a esquerda)
+    pipeArray = pipeArray.map(pipe => {
         pipe.x += velocityX;
         context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height);
 
-        if (!pipe.passed && bird.x > pipe.x + pipe.width) {
-            score += 0.5; //0.5 because there are 2 pipes! so 0.5*2 = 1, 1 for each set of pipes
+        if (!pipe.passed && bird.x > pipe.x + pipe.width) { // atualiza a pountuação do jogo, a cada vez que o pássaro passa do cano
+            score += 0.5;
             pipe.passed = true;
         }
 
-        if (detectCollision(bird, pipe)) {
+        if (detectCollision(bird, pipe)) { // verifica se o pássaro encostou no cano, interrompendo o jogo
             gameOver = true;
         }
-    }
 
-    //clear pipes
-    while (pipeArray.length > 0 && pipeArray[0].x < -pipeWidth) {
-        pipeArray.shift(); //removes first element from the array
-    }
+        return pipe;
+    });
 
-    //score
+    // Limpa as tubulações que passaram do quadro
+    pipeArray = pipeArray.filter(pipe => pipe.x >= -pipeWidth);
+
+    // Desenha a pontuação na tela
     context.fillStyle = "white";
-    context.font="45px sans-serif";
+    context.font = "45px sans-serif";
     context.fillText(score, 5, 45);
 
     if (gameOver) {
