@@ -2,7 +2,7 @@
 //Decidir deixar a variável no board, pois é onde o jogo será exibido então não tem como deixar como const
 let board;
 //Dimensões do jogo
-const boardWidth = 1366;
+const boardWidth = 1600;
 const boardHeight = 768;
 //Deixei como variável pois ela armazena o contexto de desenho 2D de um elemento HTML chamado "canvas", utilizado para fazer o jogo.
 let context;
@@ -25,9 +25,12 @@ const bird = {
 
 //Função que desenha a imagem do pássaro na tela, passando todos os parâmetros quanto as suas dimensões
 const birdImage = (img) => {
-    img.onload = function() {
+    const imgBird = () => {
         context.drawImage(img, bird.x, bird.y, bird.width, bird.height);
     }
+
+    img.onload = imgBird
+
 }
 
 //Carrega a imagem do passaro
@@ -44,7 +47,7 @@ let pipeArray = [];
 const pipeWidth = 64; //width/height ratio = 384/3072 = 1/8
 const pipeHeight = 512;
 //Coordenadas iniciais do cano
-const pipeX = boardWidth / 1.28;
+const pipeX = boardWidth;
 const pipeY = 0;
 
 let topPipeImg;
@@ -58,10 +61,10 @@ let velocityY = 0; //bird jump speed
 let gameOver = false;
 let score = 0; // A pontuação varia a todo momento
 
-window.onload = function() {
+const imgLoad = () => {
     board = document.getElementById("board");
-    board.height = 640;
-    board.width = 1000;
+    board.height = 768;
+    board.width = 1600;
      context = board.getContext("2d");
 
     topPipeImg = new Image();
@@ -75,7 +78,9 @@ window.onload = function() {
     document.addEventListener("keydown", moveBird);
 }
 
-function update() {
+window.onload = imgLoad
+
+const update = () => {
     setTimeout(update, 1000 / 60); // Isso limita a taxa de quadros para cerca de 60 FPS, utilizando um temporizador;
     
     if (gameOver != false) { // Verifica se a variável gameOver é verdadeira, e interrompe a atualização do jogo
@@ -124,7 +129,7 @@ function update() {
     }
 }
 
-function placePipes() {
+const placePipes = () => {
     if (gameOver) {
         return;
     }
@@ -143,7 +148,6 @@ function placePipes() {
         height : pipeHeight,
         passed : false
     }
-    pipeArray.push(topPipe);
 
     const bottomPipe = {
         img : bottomPipeImg,
@@ -153,11 +157,12 @@ function placePipes() {
         height : pipeHeight,
         passed : false
     }
-    pipeArray.push(bottomPipe);
+
+    pipeArray = pipeArray.concat([topPipe, bottomPipe]);
 }
 
-const moveBird = (e) => {
-    if (e.code == "Space" || e.code == "ArrowUp" || e.code == "KeyX") {
+const moveBird = (movement) => {
+    if (movement.code == "Space" || movement.code == "ArrowUp" || movement.code == "KeyX") {
         //jump
         velocityY = -6;
 
@@ -171,9 +176,9 @@ const moveBird = (e) => {
     }
 }
 
-const detectCollision = (a, b) => {
-    return a.x < b.x + b.width &&   //a's top left corner doesn't reach b's top right corner
-           a.x + a.width > b.x &&   //a's top right corner passes b's top left corner
-           a.y < b.y + b.height &&  //a's top left corner doesn't reach b's bottom left corner
-           a.y + a.height > b.y;    //a's bottom left corner passes b's top left corner
+const detectCollision = (objectB, objectP) => { // Detecta se os quatro cantos do pássaro encostam (ou não) nos canos
+    return objectB.x < objectP.x + objectP.width &&   
+           objectB.x + objectP.width > objectP.x &&   
+           objectB.y < objectP.y + objectP.height &&  
+           objectB.y + objectB.height > objectP.y;    
 }
