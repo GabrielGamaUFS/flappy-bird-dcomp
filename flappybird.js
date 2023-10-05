@@ -182,3 +182,13 @@ const detectCollision = (objectB, objectP) => { // Detecta se os quatro cantos d
            objectB.y < objectP.y + objectP.height &&  
            objectB.y + objectB.height > objectP.y;    
 }
+
+//Consertando Bug
+//Função que permite que as teclas espaço e seta pra cima sejam executadas e bloqueia qualquer outra tecla a não ser elas duas
+const blocking_keys = () => {document.addEventListener('keydown', function(event) {
+    const Keys = [' ', 'ArrowUp']
+    if (!Keys.includes(event.key)) {
+        event.preventDefault()
+    }
+})}
+blocking_keys()
