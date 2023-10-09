@@ -4,16 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flappybird Home Screen</title>
-    <script src="flappybird.js"></script>
 </head>
 <body>
     <img src="Flappybird game.png" alt="Title game" srcset="" width="250px" height="100px" id="titlegame">
     <br><br>
     <div id="playgame">
          <a href="http://127.0.0.1:5500/flappybird%20home%20screen.html"><button>Play Game</button></a>
+         <input type="button" value="Instructions" class="btninstructions" id="btninstructions" onclick="playinstructions()">
          
          
+    </div> 
+    <br><br>
+    <div id="inst">
+
+        <h1 id="h1c"></h1>
+        <p id="pk"></p>
+        <h1 id="h1g"></h1>
+        <p id="po"></p>
+
     </div>
+   
     <style>
         body{
             background-image: url("flappybirdbg.png")
@@ -29,13 +39,47 @@
         #titlegame{
             position: absolute;
             top: 30%;
-            left: 42%;
-            transform: translate(-5%,-30%);
+            left: 50%;
+            transform: translate(-50%,-30%);
+        }
+        #inst{
+            background-color: rgba(9, 142, 186, 0.5);
+            position:absolute;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            color: rgb(237, 234, 234);
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+            box-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
         }
 
 
 
 
     </style>
+
+    <script>
+const instructions = document.getElementById("btninstructions")
+const txtc = document.getElementById("h1c")
+const txtk = document.getElementById("pk")
+const txtg = document.getElementById("h1g")
+const txto = document.getElementById("po")
+let gameGif 
+
+const playinstructions = () => {
+   const controls = document.createTextNode("CONTROLS:\n")
+   const keys = document.createTextNode("Use the keys 'Space', ArrowUp' and 'X' to jump\n")
+   const goal = document.createTextNode("GAME OBJECTIVES:\n")
+   const objectives = document.createTextNode("Travel as far as possible without running into pipes or falling\n")
+   txtc.appendChild(controls)
+   txtk.appendChild(keys)
+   txtg.appendChild(goal)
+   txto.appendChild(objectives)
+   
+
+}
+    </script>
 </body>
 </html>
