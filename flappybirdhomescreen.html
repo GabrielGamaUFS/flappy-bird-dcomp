@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappybird home screen</title>
+    <script src="flappybird.js"></script>
+    <style>
+        body{
+            font-family: 'Courier New', Courier, monospace;
+            background-image: url("./flappybirdbg.png");
+    
+
+        }
+        #lvl{
+            background-color: rgba(9, 142, 186, 0.5);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            text-align: center;
+            height: 275px;
+            width: 275px;
+            box-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+            text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+        }
+            
+        #title{
+            color: rgb(237, 234, 234);
+            
+        }
+        .btneasy{ 
+            width: 105px;
+            height: 25px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .btnmedium{
+            width: 105px;
+            height: 25px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .btnhard{
+            width: 105px;
+            height: 25px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .btnprofessional{
+            width: 105px;
+            height: 25px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="lvl">
+        <h1 id="title">Levels :</h1>
+        <br>
+        <a href="http://127.0.0.1:5500/index.html"><button class="btneasy" onclick="playeasy()">Easy</button></a>
+        <br><br>
+        <a href="http://127.0.0.1:5500/index.html"><button class="btnmedium" onclick="playmedium()">Medium</button></button></a>
+        <br><br>
+        <a href="http://127.0.0.1:5500/index.html"><button class="btnhard" onclick="playhard()">Hard</button></a>
+        <br><br>
+        <a href="http://127.0.0.1:5500/index.html"><button class="btnprofessional" onclick="playprofessional()">Professional</button></a>
+
+    </div>
+</body>
+</html>
