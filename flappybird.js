@@ -54,12 +54,44 @@ let topPipeImg;
 let bottomPipeImg;
 
 //physics
-const velocityX = -2; //pipes moving left speed
-const gravity = 0.4;
-let velocityY = 0; //bird jump speed
+// physics
+const difficulties = {
+    easy: {
+        pipeSpeed: -1,
+        gravity: 0.3,
+        jumpSpeed: -5,
+    },
+    medium: {
+        pipeSpeed: -2,
+        gravity: 0.4,
+        jumpSpeed: -6,
+    },
+    hard: {
+        pipeSpeed: -3,
+        gravity: 0.5,
+        jumpSpeed: -7,
+    },
+    professional: {
+        pipeSpeed: -4,
+        gravity: 0.6,
+        jumpSpeed: -8,
+    },
+};
 
+let currentDifficulty = difficulties.medium;
+
+const setDifficulty = (difficulty) => {
+    currentDifficulty = difficulties[difficulty];
+    velocityX = currentDifficulty.pipeSpeed;
+    gravity = currentDifficulty.gravity;
+    velocityY = currentDifficulty.jumpSpeed;
+};
+
+let velocityX = currentDifficulty.pipeSpeed;
+const gravity = currentDifficulty.gravity;
+let velocityY = currentDifficulty.jumpSpeed;
 let gameOver = false;
-let score = 0; // A pontuação varia a todo momento
+let score = 0;
 
 const imgLoad = () => {
     board = document.getElementById("board");
@@ -191,4 +223,24 @@ const blocking_keys = () => {document.addEventListener('keydown', function(event
         event.preventDefault()
     }
 })}
+function selectLevel(level) {
+    setDifficulty(level);
+}
+
+document.getElementById('easyBtn').addEventListener('click', function () {
+    selectLevel('easy');
+});
+
+document.getElementById('mediumBtn').addEventListener('click', function () {
+    selectLevel('medium');
+});
+
+document.getElementById('hardBtn').addEventListener('click', function () {
+    selectLevel('hard');
+});
+
+document.getElementById('professionalBtn').addEventListener('click', function () {
+    selectLevel('professional');
+});
+
 blocking_keys()
