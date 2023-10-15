@@ -113,8 +113,8 @@ let score = 0;
 
 const imgLoad = () => {
     board = document.getElementById("board");
-    board.height = 768;
-    board.width = 1600;
+    board.height = 735;
+    board.width = 1500;
      context = board.getContext("2d");
 
     topPipeImg = new Image();
