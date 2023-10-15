@@ -99,13 +99,6 @@ const setDifficulty = (difficulty) => {
     velocityY = currentDifficulty.jumpSpeed;
 };
 
-const setDifficulty = (difficulty) => {
-    currentDifficulty = difficulties[difficulty];
-    velocityX = currentDifficulty.pipeSpeed;
-    gravity = currentDifficulty.gravity;
-    velocityY = currentDifficulty.jumpSpeed;
-};
-
 let velocityX = currentDifficulty.pipeSpeed;
 let gravity = currentDifficulty.gravity;
 let velocityY = currentDifficulty.jumpSpeed;
@@ -282,4 +275,3 @@ document.addEventListener('keydown', function (event) {
 });
 
 blocking_keys();
-
