@@ -54,54 +54,60 @@ let topPipeImg;
 let bottomPipeImg;
 
 //physics
-// physics
-const difficulties = {
+const easyDif = {
     easy: {
-        pipeSpeed: -2,
-        gravity: 0.4,
-        jumpSpeed: -6,
-    },
-    medium: {
-        pipeSpeed: -3,
+        velocityX: -2,
         gravity: 0.5,
-        jumpSpeed: -7,
-    },
-    hard: {
-        pipeSpeed: -4,
-        gravity: 0.6,
-        jumpSpeed: -8,
-    },
-    professional: {
-        pipeSpeed: -5,
-        gravity: 0.7,
-        jumpSpeed: -9,
-    },
-    god: {
-        pipeSpeed: -6,
-        gravity: 0.8,
-        jumpSpeed: -10
-    },
-    hacker: {
-        pipeSpeed: -7,
-        gravity: 0.9,
-        jumpSpeed: -11
+        velocityY: -8,
     }
-    
-};
+}
 
-let currentDifficulty = difficulties.easy;
-let currentLevel = 'easy';
+const mediumDif = {
+    medium: {
+        velocityX: -4,
+        gravity: 0.6,
+        velocityY: -9,
+    }
+}
 
-const setDifficulty = (difficulty) => {
-    currentDifficulty = difficulties[difficulty];
-    velocityX = currentDifficulty.pipeSpeed;
-    gravity = currentDifficulty.gravity;
-    velocityY = currentDifficulty.jumpSpeed;
-};
+const hardDif = {
+    hard: {
+        velocityX: -6,
+        gravity: 0.7,
+        velocityY: -10,
+    }
+}
 
-let velocityX = currentDifficulty.pipeSpeed;
-let gravity = currentDifficulty.gravity;
-let velocityY = currentDifficulty.jumpSpeed;
+const professionalDif = {
+    professional: {
+        velocityX: -10,
+        gravity: 0.8,
+        velocityY: -10,
+    }
+}
+
+// Recupera o parâmetro de dificuldade da URL
+const urlParams = new URLSearchParams(window.location.search);
+const difficulty = urlParams.get('difficulty');
+
+// Define as configurações com base na dificuldade
+let settings;
+if (difficulty === "easy") {
+    settings = easyDif.easy;
+} else if (difficulty === "medium") {
+    settings = mediumDif.medium;
+} else if (difficulty === "hard") {
+    settings = hardDif.hard;
+} else if (difficulty === "professional") {
+    settings = professionalDif.professional;
+} else {
+    // Dificuldade padrão ou tratamento de erro
+    settings = mediumD.medium;
+}
+
+// Use as configurações em settings para o jogo
+let { velocityX, gravity, velocityY } = settings;
+
 let gameOver = false;
 let score = 0;
 
@@ -231,24 +237,7 @@ const detectCollision = (bird, pipe) => {
     }
     return false;
 }
-const increaseLevel = () => {
-    if (currentLevel === 'easy') {
-        setDifficulty('medium');
-        currentLevel = 'medium';
-    } else if (currentLevel === 'medium') {
-        setDifficulty('hard');
-        currentLevel = 'hard';
-    } else if (currentLevel === 'hard') {
-        setDifficulty('professional');
-        currentLevel = 'professional';
-    } else if (currentLevel === 'professional') {
-        setDifficulty('god');
-        currentLevel = 'god';
-    } else if (currentLevel === 'god') {
-        setDifficulty('hacker');
-        currentLevel = 'hacker';
-}
-}
+
 //Consertando Bug
 //Função que permite que as teclas espaço e seta pra cima sejam executadas e bloqueia qualquer outra tecla a não ser elas duas
 const blocking_keys = () => {document.addEventListener('keydown', function(event) {
@@ -257,26 +246,5 @@ const blocking_keys = () => {document.addEventListener('keydown', function(event
         event.preventDefault()
     }
 })}
-document.addEventListener('keydown', function (event) {
-    if (event.key === '1') {
-        setDifficulty('easy');
-        currentLevel = 'easy';
-    } else if (event.key === '2') {
-        setDifficulty('medium');
-        currentLevel = 'medium';
-    } else if (event.key === '3') {
-        setDifficulty('hard');
-        currentLevel = 'hard';
-    } else if (event.key === '4') {
-        setDifficulty('professional');
-        currentLevel = 'professional';
-    }else if (event.key === '5') {
-        setDifficulty('god');
-        currentLevel = 'god';
-    }else if (event.key === '6') {
-        setDifficulty('hacker');
-        currentLevel = 'hacker';
-    }
-});
 
 blocking_keys();
