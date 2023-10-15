@@ -59,7 +59,6 @@ const easyDif = {
         velocityX: -2,
         gravity: 0.5,
         velocityY: -8,
-        pipeInterval: 2000 //2 segundos
     }
 }
 
@@ -68,7 +67,6 @@ const mediumDif = {
         velocityX: -4,
         gravity: 0.6,
         velocityY: -9,
-        pipeInterval: 1000 //1 segundo
     }
 }
 
@@ -77,7 +75,6 @@ const hardDif = {
         velocityX: -6,
         gravity: 0.7,
         velocityY: -10,
-        pipeInterval: 500 //0.5 segundos
     }
 }
 
@@ -86,7 +83,6 @@ const professionalDif = {
         velocityX: -10,
         gravity: 0.8,
         velocityY: -10,
-        pipeInterval: 400 //0.4 segundos
     }
 }
 
@@ -117,8 +113,8 @@ let score = 0;
 
 const imgLoad = () => {
     board = document.getElementById("board");
-    board.height = 735;
-    board.width = 1500;
+    board.height = 768;
+    board.width = 1600;
      context = board.getContext("2d");
 
     topPipeImg = new Image();
@@ -128,9 +124,7 @@ const imgLoad = () => {
     bottomPipeImg.src = "./bottompipe.png";
 
     requestAnimationFrame(update);
-    //O intervalo de tempo da aparição dos canos irá mudar conforme o nível
-    const pipeInterval = settings.pipeInterval;
-    setInterval(placePipes, pipeInterval);
+    setInterval(placePipes, 1500); //every 1.5 seconds
     document.addEventListener("keydown", moveBird);
 }
 
@@ -160,6 +154,9 @@ const update = () => {
         if (!pipe.passed && bird.x > pipe.x + pipe.width) {
             score += 0.5;
             pipe.passed = true;
+            if (score % 10 === 0) {
+                increaseLevel();
+            }
         }
 
         if (detectCollision(bird, pipe)) {
