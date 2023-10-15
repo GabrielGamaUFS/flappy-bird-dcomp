@@ -154,9 +154,6 @@ const update = () => {
         if (!pipe.passed && bird.x > pipe.x + pipe.width) {
             score += 0.5;
             pipe.passed = true;
-            if (score % 10 === 0) {
-                increaseLevel();
-            }
         }
 
         if (detectCollision(bird, pipe)) {
