@@ -220,11 +220,16 @@ const moveBird = (movement) => {
     }
 }
 
-const detectCollision = (objectB, objectP) => { // Detecta se os quatro cantos do pássaro encostam (ou não) nos canos
-    return objectB.x < objectP.x + objectP.width &&   
-           objectB.x + objectP.width > objectP.x &&   
-           objectB.y < objectP.y + objectP.height &&  
-           objectB.y + objectB.height > objectP.y;    
+const detectCollision = (bird, pipe) => {
+    if (
+        bird.x + bird.width > pipe.x &&
+        bird.x < pipe.x + pipe.width &&
+        bird.y + bird.height > pipe.y &&
+        bird.y < pipe.y + pipe.height
+    ) {
+        return true;
+    }
+    return false;
 }
 const increaseLevel = () => {
     if (currentLevel === 'easy') {
