@@ -59,6 +59,7 @@ const easyDif = {
         velocityX: -2,
         gravity: 0.5,
         velocityY: -8,
+        pipeInterval: 2000 //2 segundos
     }
 }
 
@@ -67,6 +68,7 @@ const mediumDif = {
         velocityX: -4,
         gravity: 0.6,
         velocityY: -9,
+        pipeInterval: 1000 //1 segundo
     }
 }
 
@@ -75,6 +77,7 @@ const hardDif = {
         velocityX: -6,
         gravity: 0.7,
         velocityY: -10,
+        pipeInterval: 500 //0.5 segundos
     }
 }
 
@@ -83,6 +86,7 @@ const professionalDif = {
         velocityX: -10,
         gravity: 0.8,
         velocityY: -10,
+        pipeInterval: 400 //0.4 segundos
     }
 }
 
@@ -124,7 +128,9 @@ const imgLoad = () => {
     bottomPipeImg.src = "./bottompipe.png";
 
     requestAnimationFrame(update);
-    setInterval(placePipes, 1500); //every 1.5 seconds
+    //O intervalo de tempo da aparição dos canos irá mudar conforme o nível
+    const pipeInterval = settings.pipeInterval;
+    setInterval(placePipes, pipeInterval);
     document.addEventListener("keydown", moveBird);
 }
 
