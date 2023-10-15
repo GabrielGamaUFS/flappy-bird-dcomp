@@ -57,28 +57,47 @@ let bottomPipeImg;
 // physics
 const difficulties = {
     easy: {
-        pipeSpeed: -1,
-        gravity: 0.3,
-        jumpSpeed: -5,
-    },
-    medium: {
         pipeSpeed: -2,
         gravity: 0.4,
         jumpSpeed: -6,
     },
-    hard: {
+    medium: {
         pipeSpeed: -3,
         gravity: 0.5,
         jumpSpeed: -7,
     },
-    professional: {
+    hard: {
         pipeSpeed: -4,
         gravity: 0.6,
         jumpSpeed: -8,
     },
+    professional: {
+        pipeSpeed: -5,
+        gravity: 0.7,
+        jumpSpeed: -9,
+    },
+    god: {
+        pipeSpeed: -6,
+        gravity: 0.8,
+        jumpSpeed: -10
+    },
+    hacker: {
+        pipeSpeed: -7,
+        gravity: 0.9,
+        jumpSpeed: -11
+    }
+    
 };
 
-let currentDifficulty = difficulties.medium;
+let currentDifficulty = difficulties.easy;
+let currentLevel = 'easy';
+
+const setDifficulty = (difficulty) => {
+    currentDifficulty = difficulties[difficulty];
+    velocityX = currentDifficulty.pipeSpeed;
+    gravity = currentDifficulty.gravity;
+    velocityY = currentDifficulty.jumpSpeed;
+};
 
 const setDifficulty = (difficulty) => {
     currentDifficulty = difficulties[difficulty];
@@ -88,7 +107,7 @@ const setDifficulty = (difficulty) => {
 };
 
 let velocityX = currentDifficulty.pipeSpeed;
-const gravity = currentDifficulty.gravity;
+let gravity = currentDifficulty.gravity;
 let velocityY = currentDifficulty.jumpSpeed;
 let gameOver = false;
 let score = 0;
@@ -113,35 +132,35 @@ const imgLoad = () => {
 window.onload = imgLoad
 
 const update = () => {
-    setTimeout(update, 1000 / 60); // Isso limita a taxa de quadros para cerca de 60 FPS, utilizando um temporizador;
-    
-    if (gameOver != false) { // Verifica se a variável gameOver é verdadeira, e interrompe a atualização do jogo
+    setTimeout(update, 1000 / 60);
+
+    if (gameOver != false) {
         return;
     }
 
-    context.clearRect(0, 0, board.width, board.height); // Limpa o board, colocando um quadro transparente sobre o board, antes de desenhar o próximo quadro
+    context.clearRect(0, 0, board.width, board.height);
 
-    // Atualização da posição vertical do passáro, aplicando a gravidade para simular a queda
     velocityY += gravity;
     bird.y = Math.max(bird.y + velocityY, 0);
     context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
 
-    // Verifica se o pássaro caiu fora do quadro, se verdadeira, a vária vel gameOver é deixada como verdadeira
     if (bird.y > board.height) {
         gameOver = true;
     }
 
-    // Atualização a variável pipeArray, adicionando o cano(com suas posições) e sua velocidade do cano, que faz o cano se mover para a esquerda)
     pipeArray = pipeArray.map(pipe => {
         pipe.x += velocityX;
         context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height);
 
-        if (!pipe.passed && bird.x > pipe.x + pipe.width) { // atualiza a pountuação do jogo, a cada vez que o pássaro passa do cano
+        if (!pipe.passed && bird.x > pipe.x + pipe.width) {
             score += 0.5;
             pipe.passed = true;
+            if (score % 10 === 0) {
+                increaseLevel();
+            }
         }
 
-        if (detectCollision(bird, pipe)) { // verifica se o pássaro encostou no cano, interrompendo o jogo
+        if (detectCollision(bird, pipe)) {
             gameOver = true;
         }
 
@@ -214,7 +233,24 @@ const detectCollision = (objectB, objectP) => { // Detecta se os quatro cantos d
            objectB.y < objectP.y + objectP.height &&  
            objectB.y + objectB.height > objectP.y;    
 }
-
+const increaseLevel = () => {
+    if (currentLevel === 'easy') {
+        setDifficulty('medium');
+        currentLevel = 'medium';
+    } else if (currentLevel === 'medium') {
+        setDifficulty('hard');
+        currentLevel = 'hard';
+    } else if (currentLevel === 'hard') {
+        setDifficulty('professional');
+        currentLevel = 'professional';
+    } else if (currentLevel === 'professional') {
+        setDifficulty('god');
+        currentLevel = 'god';
+    } else if (currentLevel === 'god') {
+        setDifficulty('hacker');
+        currentLevel = 'hacker';
+}
+}
 //Consertando Bug
 //Função que permite que as teclas espaço e seta pra cima sejam executadas e bloqueia qualquer outra tecla a não ser elas duas
 const blocking_keys = () => {document.addEventListener('keydown', function(event) {
@@ -223,24 +259,27 @@ const blocking_keys = () => {document.addEventListener('keydown', function(event
         event.preventDefault()
     }
 })}
-function selectLevel(level) {
-    setDifficulty(level);
-}
-
-document.getElementById('easyBtn').addEventListener('click', function () {
-    selectLevel('easy');
+document.addEventListener('keydown', function (event) {
+    if (event.key === '1') {
+        setDifficulty('easy');
+        currentLevel = 'easy';
+    } else if (event.key === '2') {
+        setDifficulty('medium');
+        currentLevel = 'medium';
+    } else if (event.key === '3') {
+        setDifficulty('hard');
+        currentLevel = 'hard';
+    } else if (event.key === '4') {
+        setDifficulty('professional');
+        currentLevel = 'professional';
+    }else if (event.key === '5') {
+        setDifficulty('god');
+        currentLevel = 'god';
+    }else if (event.key === '6') {
+        setDifficulty('hacker');
+        currentLevel = 'hacker';
+    }
 });
 
-document.getElementById('mediumBtn').addEventListener('click', function () {
-    selectLevel('medium');
-});
+blocking_keys();
 
-document.getElementById('hardBtn').addEventListener('click', function () {
-    selectLevel('hard');
-});
-
-document.getElementById('professionalBtn').addEventListener('click', function () {
-    selectLevel('professional');
-});
-
-blocking_keys()
