@@ -59,6 +59,7 @@ const easyDif = {
         velocityX: -2,
         gravity: 0.5,
         velocityY: -8,
+        pipeInterval: 1500 // 1.5 segundos
     }
 }
 
@@ -67,6 +68,7 @@ const mediumDif = {
         velocityX: -4,
         gravity: 0.6,
         velocityY: -9,
+        pipeInterval: 800 // 0.8 segundos
     }
 }
 
@@ -75,14 +77,16 @@ const hardDif = {
         velocityX: -6,
         gravity: 0.7,
         velocityY: -10,
+        pipeInterval: 600 // 0.6 segundos
     }
 }
 
 const professionalDif = {
     professional: {
         velocityX: -10,
-        gravity: 0.8,
+        gravity: 0.7,
         velocityY: -10,
+        pipeInterval: 500 //0.5 segundos
     }
 }
 
@@ -113,8 +117,8 @@ let score = 0;
 
 const imgLoad = () => {
     board = document.getElementById("board");
-    board.height = 768;
-    board.width = 1600;
+    board.height = 735;
+    board.width = 1500;
      context = board.getContext("2d");
 
     topPipeImg = new Image();
@@ -124,19 +128,25 @@ const imgLoad = () => {
     bottomPipeImg.src = "./bottompipe.png";
 
     requestAnimationFrame(update);
-    setInterval(placePipes, 1500); //every 1.5 seconds
+    //O intervalo de tempo da aparição dos canos irá mudar conforme o nível
+    const pipeInterval = settings.pipeInterval;
+    setInterval(placePipes, pipeInterval);
     document.addEventListener("keydown", moveBird);
 }
 
-window.onload = imgLoad
+window.onload = imgLoad;
 
 const update = () => {
     setTimeout(update, 1000 / 60);
 
+    if (gameOver) {
+        restartGame(); // Chame restartGame imediatamente quando o jogo terminar
+    }
+
     if (gameOver != false) {
         return;
     }
-
+    
     context.clearRect(0, 0, board.width, board.height);
 
     velocityY += gravity;
@@ -154,9 +164,6 @@ const update = () => {
         if (!pipe.passed && bird.x > pipe.x + pipe.width) {
             score += 0.5;
             pipe.passed = true;
-            if (score % 10 === 0) {
-                increaseLevel();
-            }
         }
 
         if (detectCollision(bird, pipe)) {
@@ -171,11 +178,11 @@ const update = () => {
 
     // Desenha a pontuação na tela
     context.fillStyle = "white";
-    context.font = "45px sans-serif";
+    context.font = "30px Arial";
     context.fillText(score, 5, 45);
 
     if (gameOver) {
-        context.fillText("GAME OVER", 5, 90);
+        context.fillText(5, 90);
     }
 }
 
@@ -211,18 +218,24 @@ const placePipes = () => {
     pipeArray = pipeArray.concat([topPipe, bottomPipe]);
 }
 
-const moveBird = (movement) => {
-    if (movement.code == "Space" || movement.code == "ArrowUp" || movement.code == "KeyX") {
-        //jump
-        velocityY = -6;
+// Tela que será chamada quando o jogador perder, para ser habilitada a escolha de recomeçar ou escolher a dificuldade
+const restartGame = () => { 
+    bird.y = birdY;
+    pipeArray = [];
+    score = 0;
+    const divGameOver = document.getElementById("gameover");
+    divGameOver.style.display = "block"; // Sempre exibir a tela "Play Again"
+}
 
-        //reset game
-        if (gameOver) {
-            bird.y = birdY;
-            pipeArray = [];
-            score = 0;
-            gameOver = false;
-        }
+// Atualizará a página, após clicar em Play Again
+const playAgain = () => {
+    location.reload();
+}
+
+// Pula o pássaro se as teclas "Space", "ArrowUp" ou "KeyX" forem pressionadas
+const moveBird = (movement) => { 
+    if (movement.code == "Space" || movement.code == "ArrowUp" || movement.code == "KeyX") {
+        velocityY = -6;
     }
 }
 
