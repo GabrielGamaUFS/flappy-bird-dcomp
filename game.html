@@ -6,10 +6,36 @@
         <title>Flappy Bird</title>
         <link rel="stylesheet" href="flappybird.css">
         <script src="flappybird.js"></script>
-        </head>
-        <body>
-            
+    </head>
+    <body>
         <canvas id="board"></canvas>
+    <div id="gameover" class="playagain">
+        <h1>GAME OVER!</h1>
+        <button id="playagain" onclick="playAgain()"> Play again</button>
+        <a href="flappybirdhomescreen.html"><button>Exit</button></a>
+    </div>
         
+        
+        <style>
+
+            #gameover{
+            display: none;
+            background-color: rgba(9, 142, 186, 0.5);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            font-family: 'Courier New', Courier, monospace;
+            width: 200px;
+            height: 150px;
+            color:  rgb(237, 234, 234);
+            
+            }
+            
+
+            
+        </style>
+
     </body>
 </html>
+
